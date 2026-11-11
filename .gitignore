@@ -1,0 +1,44 @@
+# Python & Virtual Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+*.key
+*.crt
+*.pem
+
+# Build & PyInstaller Artifacts
+build/
+dist/
+*.egg-info/
+
+# Personal AI Instructions & Local Environment Setup Artifacts
+.agents/
+AGENTS.md
+SETUP-REPORT.md
+SETUP-README.md
+plan_*.md
+backup_obsidian_config/
+*.bak*
+*.log
+
+# Local Diagnostics & Screenshots (keep screenshots folder structure only)
+testing/*
+!testing/screenshots/
+testing/screenshots/*
+!testing/screenshots/.gitkeep
+
+# Editor & OS Metadata
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

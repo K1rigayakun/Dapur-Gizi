@@ -1,0 +1,8 @@
+# DapurGizi Core Dependencies (Verified on Python 3.13.2)
+Eel==0.18.2
+supabase==2.30.0
+python-dotenv==1.2.2
+
+# Packaging & Testing
+pyinstaller==6.22.2
+pytest==9.0.3
