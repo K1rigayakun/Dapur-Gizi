@@ -1,0 +1,50 @@
+/**
+ * DapurGizi — Motion Keyframes & Reduced Motion Safeguards
+ * Coordinated with Anime.js v4 (js/utils/motion.js)
+ * File: css/animations.css
+ */
+
+@keyframes dg-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes dg-pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  70% { transform: scale(1.25); opacity: 0; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+.status-dot-live {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  position: relative;
+  display: inline-block;
+}
+
+.status-dot-live::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--color-success);
+  animation: dg-pulse-ring 2s infinite;
+}
+
+/* Reduced Motion Accessibility Compliance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .btn-liquid::after,
+  .kpi-glass-card::before {
+    display: none !important;
+  }
+}

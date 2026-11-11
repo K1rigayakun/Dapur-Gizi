@@ -1,104 +1,326 @@
+/**
+ * DapurGizi — Sistem Manajemen Operasional SPPG (Makan Bergizi Gratis)
+ * Design System: FRESH NUSANTARA — PREMIUM DESKTOP GLASS INTERFACE
+ * File: css/main.css
+ */
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../assets/fonts/PlusJakartaSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../assets/fonts/PlusJakartaSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../assets/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../assets/fonts/PlusJakartaSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../assets/fonts/PlusJakartaSans-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-    --bg-primary: #f8fafc;
-    --surface: #ffffff;
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --accent: #0284c7;
-    --border: #e2e8f0;
-    --status-ok: #15803d;
-    --status-warn: #b45309;
+  /* Core Brand Tokens (Required Exact Tokens) */
+  --color-primary: #12805C;
+  --color-primary-rgb: 18, 128, 92;
+  --color-primary-dark: #0B4F3A;
+  --color-mint: #DDF5EA;
+  --color-orange: #FF8A3D;
+  --color-yellow: #FFC83D;
+  --color-bg-light: #F5FBF8;
+  --color-bg-dark: #0A1F1A;
+  --color-text-main: #10261F;
+  --color-text-secondary: #5B7A70;
+
+  /* Semantic Status Tokens */
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+
+  /* Light Theme Surface & Glass Tokens (60% Neutral, 30% Green/Mint, 10% Warm Accent) */
+  --bg-app: #F5FBF8;
+  --bg-ambient-gradient:
+    radial-gradient(circle at 8% 6%, rgba(18, 128, 92, 0.08) 0%, transparent 38%),
+    radial-gradient(circle at 92% 10%, rgba(255, 200, 61, 0.08) 0%, transparent 34%),
+    linear-gradient(180deg, #F5FBF8 0%, #EDF7F2 100%);
+  --bg-surface: rgba(255, 255, 255, 0.88);
+  --bg-surface-solid: #FFFFFF;
+  --bg-surface-elevated: rgba(255, 255, 255, 0.96);
+  --bg-surface-muted: #ECF6F1;
+  --bg-surface-hover: rgba(221, 245, 234, 0.55);
+  --bg-sidebar: rgba(255, 255, 255, 0.84);
+  --bg-topbar: rgba(245, 251, 248, 0.82);
+
+  --text-primary: #10261F;
+  --text-secondary: #5B7A70;
+  --text-muted: #7C998F;
+  --text-inverse: #FFFFFF;
+
+  --border-subtle: rgba(18, 128, 92, 0.13);
+  --border-strong: rgba(18, 128, 92, 0.24);
+  --border-glass: rgba(255, 255, 255, 0.75);
+
+  --shadow-xs: 0 1px 2px rgba(16, 38, 31, 0.04);
+  --shadow-sm: 0 4px 12px rgba(16, 38, 31, 0.05), 0 1px 2px rgba(16, 38, 31, 0.03);
+  --shadow-md: 0 10px 28px -6px rgba(11, 79, 58, 0.08), 0 2px 6px rgba(16, 38, 31, 0.04);
+  --shadow-lg: 0 20px 44px -10px rgba(11, 79, 58, 0.14), 0 4px 12px rgba(16, 38, 31, 0.06);
+  --shadow-focus: 0 0 0 3px rgba(18, 128, 92, 0.26);
+
+  /* Layout Dimensions */
+  --sidebar-width-expanded: 264px;
+  --sidebar-width-collapsed: 80px;
+  --sidebar-current-width: 264px;
+  --topbar-height: 68px;
+
+  /* Radius & Spacing */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* Dark Mode Theme Overrides */
+[data-theme='dark'] {
+  --bg-app: #0A1F1A;
+  --bg-ambient-gradient:
+    radial-gradient(circle at 12% 8%, rgba(18, 128, 92, 0.18) 0%, transparent 40%),
+    radial-gradient(circle at 88% 12%, rgba(255, 138, 61, 0.09) 0%, transparent 35%),
+    linear-gradient(180deg, #0A1F1A 0%, #071713 100%);
+  --bg-surface: rgba(15, 41, 34, 0.84);
+  --bg-surface-solid: #102A22;
+  --bg-surface-elevated: rgba(19, 51, 42, 0.96);
+  --bg-surface-muted: #14352B;
+  --bg-surface-hover: rgba(18, 128, 92, 0.22);
+  --bg-sidebar: rgba(11, 33, 27, 0.88);
+  --bg-topbar: rgba(10, 31, 26, 0.84);
+
+  --text-primary: #ECF8F3;
+  --text-secondary: #9CC0B3;
+  --text-muted: #6C9386;
+  --text-inverse: #FFFFFF;
+
+  --border-subtle: rgba(221, 245, 234, 0.11);
+  --border-strong: rgba(221, 245, 234, 0.22);
+  --border-glass: rgba(221, 245, 234, 0.08);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.32);
+  --shadow-md: 0 12px 30px -6px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 52px -10px rgba(0, 0, 0, 0.6);
+  --shadow-focus: 0 0 0 3px rgba(34, 197, 94, 0.35);
 }
 
+/* Reset & Base Typography */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.5;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-app);
+  background-image: var(--bg-ambient-gradient);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Accessible Focus States */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* Application Shell Layout */
+#app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-shell {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
 }
 
-.shell-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-    background-color: var(--surface);
-    border-bottom: 1px solid var(--border);
+.app-Shell--sidebar-collapsed {
+  --sidebar-current-width: var(--sidebar-width-collapsed);
 }
 
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+.app-main-wrapper {
+  flex: 1;
+  min-width: 0;
+  margin-left: var(--sidebar-current-width);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.brand-icon {
-    color: var(--accent);
+.app-content {
+  flex: 1;
+  padding: 24px 28px 36px;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.brand-text h1 {
-    font-size: 1.125rem;
-    font-weight: 700;
+/* 12-Column Responsive Grid System */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 20px;
 }
 
-.brand-text span {
-    font-size: 0.8125rem;
-    color: var(--text-secondary);
+.col-12 { grid-column: span 12 / span 12; }
+.col-9  { grid-column: span 9 / span 9; }
+.col-8  { grid-column: span 8 / span 8; }
+.col-7  { grid-column: span 7 / span 7; }
+.col-6  { grid-column: span 6 / span 6; }
+.col-5  { grid-column: span 5 / span 5; }
+.col-4  { grid-column: span 4 / span 4; }
+.col-3  { grid-column: span 3 / span 3; }
+
+/* Page Header Hierarchy */
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
-.status-badge {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.375rem;
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
+.page-header__title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.status-badge[data-state="ready"] {
-    color: var(--status-ok);
-    border-color: #bbf7d0;
-    background-color: #f0fdf4;
+.page-header__eyebrow {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.status-badge[data-state="offline"] {
-    color: var(--status-warn);
-    border-color: #fde68a;
-    background-color: #fffbeb;
+.page-header__title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.25;
 }
 
-.shell-content {
-    flex: 1;
-    padding: 2rem 1.5rem;
-    max-width: 64rem;
-    margin: 0 auto;
-    width: 100%;
+.page-header__subtitle {
+  font-size: 13.5px;
+  color: var(--text-secondary);
 }
 
-.shell-card {
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
+.page-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.shell-card h2 {
-    font-size: 1.125rem;
-    margin-bottom: 0.5rem;
-}
+/* Utility Classes */
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.font-mono { font-family: var(--font-mono); }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.text-muted { color: var(--text-secondary); }
+.text-primary-green { color: var(--color-primary); }
+.text-danger { color: var(--color-danger); }
+.text-warning { color: var(--color-warning); }
+.text-success { color: var(--color-success); }
 
-.shell-card p {
-    color: var(--text-secondary);
-    font-size: 0.9375rem;
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+.mt-4 { margin-top: 16px; }
+.mb-3 { margin-bottom: 12px; }
+.mb-4 { margin-bottom: 16px; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(91, 122, 112, 0.28);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(18, 128, 92, 0.5);
 }

@@ -1,41 +1,26 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DapurGizi — Sistem Manajemen MBG SPPG</title>
-    <link rel="stylesheet" href="css/main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DapurGizi — Sistem Manajemen Operasional SPPG (Makan Bergizi Gratis)</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-dapurgizi.svg" />
+
+  <!-- Local Stylesheets (No External CDN or Runtime Google Fonts Dependency) -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/modules.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body>
-    <div class="app-shell">
-        <header class="shell-header">
-            <div class="brand">
-                <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-                    <path d="M7 2v20"/>
-                    <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
-                </svg>
-                <div class="brand-text">
-                    <h1>DapurGizi</h1>
-                    <span>Sistem Manajemen Operasional SPPG</span>
-                </div>
-            </div>
-            <div id="connection-badge" class="status-badge" data-state="checking">
-                Memeriksa koneksi Eel...
-            </div>
-        </header>
+  <div id="app-root"></div>
 
-        <main class="shell-content">
-            <section class="shell-card">
-                <h2>Kerangka Dasar Aplikasi Siap</h2>
-                <p>
-                    Fondasi proyek DapurGizi telah terinisialisasi. Modul fungsional akan dikembangkan pada branch fitur masing-masing anggota tim sesuai kontrak integrasi.
-                </p>
-            </section>
-        </main>
-    </div>
+  <!-- Python Eel 0.18.2 JavaScript Bridge (Loaded Before Application Modules) -->
+  <script src="/eel.js"></script>
 
-    <script type="text/javascript" src="/eel.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+  <!-- Local Anime.js v4 UMD Global Fallback & Modular ES Application Entry -->
+  <script src="vendor/anime/anime.umd.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
