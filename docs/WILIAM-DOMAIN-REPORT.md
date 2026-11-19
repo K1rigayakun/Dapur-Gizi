@@ -200,3 +200,15 @@ def production_create(payload=None):
 - [x] Fake/in-memory repository mandiri tersedia untuk seluruh modul.
 - [x] Tidak ada data pribadi (PII) nyata di repositori.
 - [x] Dokumentasi lengkap tersedia untuk Gabriel & tim.
+
+---
+
+## 8. Informasi Commit & Pull Request
+
+- **Branch**: `feature/wiliam-domain-services`
+- **Target Branch**: `main`
+- **Commit Hash**: `77b7e89a67267e7b05732c828908eab2d6090ac3`
+- **Pesan Commit**: `feat(domain): implement beneficiaries, menus, nutrition, and production services with full test suite`
+- **URL Pembuatan Pull Request**: [https://github.com/K1rigayakun/Dapur-Gizi/compare/main...feature/wiliam-domain-services](https://github.com/K1rigayakun/Dapur-Gizi/compare/main...feature/wiliam-domain-services)
+- **Ringkasan PR**: Mengimplementasikan 4 domain services inti DapurGizi (`BeneficiaryService`, `MenuService`, `NutritionService`, `ProductionService`) beserta kamus data NIK/NISN, acuan nutrisi TKPI 2019, dan 40 pengujian unit otomatis yang lulus 100%.
+
