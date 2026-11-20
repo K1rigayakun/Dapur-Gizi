@@ -1,7 +1,26 @@
-"""Registrasi semua handler Eel."""
+"""Registrasi semua handler Eel.
+
+Mengimpor modul = mendaftarkan fungsi ``@eel.expose`` di dalamnya.
+Urutan impor tidak memengaruhi kontrak; nama fungsi harus persis seperti
+INTEGRATION.md.
+"""
+
+from __future__ import annotations
 
 
 def register_all() -> None:
-    # Meng-import modul = mendaftarkan fungsi @eel.expose di dalamnya.
-    from backend.handlers import system  # noqa: F401
-    # Fase berikutnya: tambahkan auth, budget, dashboard, dst. di sini.
+    from backend.handlers import (  # noqa: F401
+        auth,
+        beneficiaries,
+        budget,
+        dashboard,
+        distribution,
+        food_safety,
+        menus,
+        notifications,
+        production,
+        reports,
+        settings,
+        system,
+        users,
+    )
