@@ -37,7 +37,7 @@ backup_obsidian_config/
 # Local Diagnostics & Screenshots (keep screenshots folder structure only)
 testing/*
 !testing/screenshots/
-testing/screenshots/*
+!testing/screenshots/*.png
 !testing/screenshots/.gitkeep
 
 # Editor & OS Metadata

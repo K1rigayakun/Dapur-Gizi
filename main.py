@@ -1,8 +1,10 @@
 """DapurGizi Application Entrypoint.
 
-Minimal Eel desktop shell for the DapurGizi SPPG Management System.
-Business modules are registered separately during feature development.
+Eel desktop shell for the DapurGizi SPPG Management System.
+Semua handler domain didaftarkan oleh ``backend.handlers.register_all()``.
 """
+
+from __future__ import annotations
 
 import os
 import sys
@@ -10,9 +12,13 @@ from pathlib import Path
 from typing import Any
 
 import eel
-from dotenv import load_dotenv
 
 from backend import create_response
+from backend.core.config import load_settings
+from backend.core.logging_setup import get_logger
+from backend.handlers import register_all
+
+APP_VERSION = "0.2.0-backend-platform"
 
 
 def get_resource_path(relative_path: str) -> str:
@@ -24,34 +30,48 @@ def get_resource_path(relative_path: str) -> str:
 @eel.expose
 def get_app_status() -> dict[str, Any]:
     """Return minimal application shell readiness status."""
+    settings = load_settings()
     return create_response(
         success=True,
         data={
             "app_name": "DapurGizi",
+            "app_version": APP_VERSION,
             "status": "ready",
-            "environment": os.getenv("APP_ENV", "development"),
+            "environment": settings.app_env,
+            "supabaseConfigured": bool(
+                settings.supabase_url and settings.supabase_anon_key
+            ),
         },
         error=None,
     )
 
 
 def start_app() -> None:
-    """Initialize Eel web directory and launch the desktop window."""
-    load_dotenv()
+    settings = load_settings()
+    log = get_logger()
+    log.info(
+        "Memulai DapurGizi %s (env=%s, eel=%s)",
+        APP_VERSION,
+        settings.app_env,
+        os.getenv("APP_ENV", settings.app_env),
+    )
 
-    web_dir = get_resource_path("web")
-    eel.init(web_dir)
+    register_all()
+    log.info("Handler Eel terdaftar: %d", len(eel._exposed_functions))
 
-    host = os.getenv("APP_HOST", "localhost")
-    port = int(os.getenv("APP_PORT", "8000"))
-    width = int(os.getenv("APP_WINDOW_WIDTH", "1280"))
-    height = int(os.getenv("APP_WINDOW_HEIGHT", "800"))
+    if not (settings.supabase_url and settings.supabase_anon_key):
+        log.warning(
+            "SUPABASE_URL / SUPABASE_ANON_KEY belum diisi. Login dan data "
+            "operasional akan gagal dengan pesan konfigurasi; Mode Demo "
+            "frontend tetap dapat digunakan tanpa backend."
+        )
 
+    eel.init(get_resource_path("web"))
     eel.start(
         "index.html",
-        host=host,
-        port=port,
-        size=(width, height),
+        host=settings.app_host,
+        port=settings.app_port,
+        size=(settings.window_width, settings.window_height),
     )
 
 
