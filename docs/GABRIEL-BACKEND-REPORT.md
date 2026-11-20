@@ -301,5 +301,5 @@ Menampilkan tabel app_settings pada Supabase Table Editor dengan skema dan konfi
 ## 16. Commit & Pull Request
 
 - Branch: eature/gabriel-backend-platform
-- Commit hash: *(Diperbarui oleh pemilik tugas saat git commit)*
-- Pull Request URL: *(Diperbarui oleh pemilik tugas saat pembuatan PR)*
+- Commit Hash: 411cd6d9d5c512f5fd84b0ffe25bd7d487d0c147
+- Pull Request Link: https://github.com/K1rigayakun/Dapur-Gizi/compare/main...feature/gabriel-backend-platform
