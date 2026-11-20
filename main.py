@@ -10,9 +10,11 @@ from pathlib import Path
 from typing import Any
 
 import eel
-from dotenv import load_dotenv
 
 from backend import create_response
+from backend.core.config import load_settings
+from backend.core.logging_setup import get_logger
+from backend.handlers import register_all
 
 
 def get_resource_path(relative_path: str) -> str:
@@ -36,22 +38,17 @@ def get_app_status() -> dict[str, Any]:
 
 
 def start_app() -> None:
-    """Initialize Eel web directory and launch the desktop window."""
-    load_dotenv()
+    settings = load_settings()
+    log = get_logger()
+    log.info("Memulai DapurGizi (env=%s)", settings.app_env)
 
-    web_dir = get_resource_path("web")
-    eel.init(web_dir)
-
-    host = os.getenv("APP_HOST", "localhost")
-    port = int(os.getenv("APP_PORT", "8000"))
-    width = int(os.getenv("APP_WINDOW_WIDTH", "1280"))
-    height = int(os.getenv("APP_WINDOW_HEIGHT", "800"))
-
+    register_all()
+    eel.init(get_resource_path("web"))
     eel.start(
         "index.html",
-        host=host,
-        port=port,
-        size=(width, height),
+        host=settings.app_host,
+        port=settings.app_port,
+        size=(settings.window_width, settings.window_height),
     )
 
 
