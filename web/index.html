@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DapurGizi — Modul Operasional Visel</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script type="text/javascript" src="/eel.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-badge">SPPG</span>
+        <div>
+          <h1>DapurGizi</h1>
+          <p>Operasional & Keamanan</p>
+        </div>
+      </div>
+      <nav class="nav-menu">
+        <button class="nav-btn active" data-tab="distribution">Distribusi Pangan</button>
+        <button class="nav-btn" data-tab="food-safety">Keamanan Pangan & SLHS</button>
+        <button class="nav-btn" data-tab="reports">Laporan Operasional</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <h2 id="page-title">Manajemen Distribusi Pangan</h2>
+        <span class="status-pill" id="connection-status">Terhubung ke Python Eel</span>
+      </header>
+
+      <div id="toast" class="toast hidden"></div>
+
+      <!-- TAB 1: DISTRIBUTION -->
+      <section id="tab-distribution" class="tab-panel active">
+        <div class="card">
+          <h3>Buat Jadwal Distribusi Baru</h3>
+          <form id="form-create-dist" class="grid-form">
+            <input type="text" name="routeCode" placeholder="Kode Rute (mis. RT-02)" required />
+            <input type="date" name="date" id="dist-date" required />
+            <input type="text" name="destinationName" placeholder="Nama Sekolah / Posyandu" required />
+            <select name="destinationType">
+              <option value="Sekolah Dasar">Sekolah Dasar</option>
+              <option value="SMP/SMA">SMP/SMA</option>
+              <option value="Posyandu">Posyandu</option>
+            </select>
+            <input type="text" name="driverName" placeholder="Nama Pengemudi" required />
+            <input type="number" name="dispatchedPortions" placeholder="Jumlah Porsi" min="1" required />
+            <input type="time" name="departureTime" value="07:30" required />
+            <input type="time" name="etaTime" value="08:30" required />
+            <input type="text" name="address" placeholder="Alamat Tujuan" class="col-span-2" required />
+            <button type="submit" class="btn btn-primary col-span-2">Simpan Jadwal Distribusi</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Daftar Pengiriman Aktif</h3>
+            <button class="btn btn-secondary" onclick="loadDistributions()">Muat Ulang</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rute</th>
+                  <th>Tanggal</th>
+                  <th>Tujuan</th>
+                  <th>Pengemudi</th>
+                  <th>Porsi Kirim</th>
+                  <th>Porsi Terima</th>
+                  <th>Selisih</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="dist-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: FOOD SAFETY -->
+      <section id="tab-food-safety" class="tab-panel">
+        <div class="grid-2">
+          <div class="card">
+            <h3>Checklist Higiene Harian</h3>
+            <form id="form-checklist">
+              <div class="form-row">
+                <label>Tanggal Inspeksi</label>
+                <input type="date" id="chk-date" required />
+              </div>
+              <div class="form-row">
+                <label>Nama Petugas Pemeriksa</label>
+                <input type="text" id="chk-inspector" placeholder="Nama petugas berwenang" required />
+              </div>
+              <div id="checklist-items" class="checklist-box"></div>
+              <div class="form-row">
+                <label>Catatan Inspeksi</label>
+                <input type="text" id="chk-notes" placeholder="Catatan tambahan (opsional)" />
+              </div>
+              <button type="submit" class="btn btn-primary">Simpan Checklist Higiene</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3>Sertifikat Laik Higiene Sanitasi (SLHS)</h3>
+            <div id="slhs-list" class="stack-list"></div>
+
+            <hr class="divider" />
+            <h3>Catat Limbah Pangan (Food Waste)</h3>
+            <form id="form-food-waste" class="grid-form">
+              <input type="date" id="fw-date" required />
+              <select id="fw-category">
+                <option value="Sisa Persiapan Bahan">Sisa Persiapan Bahan</option>
+                <option value="Sisa Porsi Tidak Terdistribusi">Sisa Porsi Tidak Terdistribusi</option>
+                <option value="Bahan Kedaluwarsa/Rusak">Bahan Kedaluwarsa/Rusak</option>
+              </select>
+              <input type="number" step="0.01" min="0.01" id="fw-weight" placeholder="Berat (Kg), mis. 2.50" required />
+              <input type="text" id="fw-method" placeholder="Metode Penanganan (mis. Kompos)" required />
+              <button type="submit" class="btn btn-primary col-span-2">Catat Limbah Pangan</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Pelaporan Insiden Keamanan Pangan</h3>
+          <form id="form-incident" class="grid-form">
+            <input type="text" id="inc-title" placeholder="Judul Insiden" required />
+            <input type="text" id="inc-location" placeholder="Lokasi Kejadian" required />
+            <select id="inc-severity">
+              <option value="Rendah">Rendah</option>
+              <option value="Sedang">Sedang</option>
+              <option value="Tinggi">Tinggi</option>
+            </select>
+            <input type="text" id="inc-action" placeholder="Tindakan Segera yang Diambil" required />
+            <button type="submit" class="btn btn-danger col-span-2">Laporkan Insiden</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 3: REPORTS -->
+      <section id="tab-reports" class="tab-panel">
+        <div class="card">
+          <h3>Generator Laporan Operasional</h3>
+          <form id="form-report" class="inline-form">
+            <select id="rep-type">
+              <option value="distribution">Laporan Distribusi Pangan</option>
+              <option value="food_safety">Laporan Limbah & Keamanan Pangan</option>
+            </select>
+            <input type="date" id="rep-start" required />
+            <input type="date" id="rep-end" required />
+            <button type="submit" class="btn btn-primary">Tampilkan Laporan</button>
+            <button type="button" class="btn btn-secondary" onclick="exportReportCSV()">Export CSV</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3 id="report-heading">Hasil Laporan</h3>
+          <p id="report-meta" class="muted">Pilih rentang tanggal lalu klik Tampilkan Laporan.</p>
+          <div class="table-wrap">
+            <table>
+              <thead id="report-thead"></thead>
+              <tbody id="report-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL KONFIRMASI PENERIMAAN -->
+  <div id="receipt-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Konfirmasi Serah Terima Distribusi</h3>
+      <form id="form-receipt">
+        <input type="hidden" id="rec-id" />
+        <div class="form-row">
+          <label>Jumlah Porsi Diterima</label>
+          <input type="number" id="rec-portions" min="0" required />
+        </div>
+        <div class="form-row">
+          <label>Waktu Diterima</label>
+          <input type="time" id="rec-time" value="08:20" required />
+        </div>
+        <div class="form-row">
+          <label>Nama Penerima (Pihak Sekolah/Posyandu)</label>
+          <input type="text" id="rec-name" placeholder="Nama lengkap penerima" required />
+        </div>
+        <div class="form-row">
+          <label>Catatan Serah Terima</label>
+          <input type="text" id="rec-notes" placeholder="Kondisi kemasan / keterangan selisih" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeReceiptModal()">Batal</button>
+          <button type="submit" class="btn btn-primary">Konfirmasi Diterima</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
